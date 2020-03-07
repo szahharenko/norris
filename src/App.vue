@@ -1,35 +1,29 @@
 <template>
   <div id="app">
     <div class="header">
-      <a href="/"><img alt="Norris" class="logo" src="./assets/logo.jpg"></a>
-      <h1>Please sid down, and be a Chuck guest!</h1>
+      <router-link :to="`/`"><img alt="Norris" class="logo" src="./assets/logo.jpg"></router-link>
+      <h1>Facts about Chuck:</h1>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
 import VueRouter from 'vue-router'
-import AllCategories from './components/Categories.vue'
-import RandomJokes from './components/RandomJokes.vue'
+import Norris from './components/Jokes.vue'
+import store from './store/index.js'
 
 const router = new VueRouter({
   routes: [
-    // { path: '/', component: Categories }
     // { path: '*', component: view404 },
-    { path: '/', component: AllCategories },
-    { path: '/jokes/:category', component: RandomJokes }
-    // { path: '/profile', component: Profile },
+    { path: '/', component: Norris },
+    { path: '/jokes/:category', component: Norris }
   ]
 })
+
 export default {
   name: 'app',
   router: router,
-  mounted () {},
-  watch: {},
-  methods: {
-    name () {
-    }
-  }
+  store: store
 }
 </script>
 <style>
@@ -75,42 +69,25 @@ ul {list-style-type:none;margin:0;padding:0;}
   .flex .flex-item.m75 {max-width:75%;}
   .flex .flex-item.m80 {max-width:80%;}
 }
-
-.heart-shape {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  background-color:#999;
+.heart-shape {position: relative;width: 20px;height: 20px;background-color:#999;
+  -webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);
 }
 .heart-shape:before,
-.heart-shape:after{
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  content: '';
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-  background-color:#999;
-}
-.heart-shape:before{
-  bottom: 0px;
-  left: -10px;
-}
-.heart-shape:after{
-  top: -10px;
-  right: 0px;
-}
+.heart-shape:after{position: absolute;width: 20px;height: 20px;content: '';border-radius: 50%;background-color:#999;}
+.heart-shape:before{bottom: 0px;left: -10px;}
+.heart-shape:after{top: -10px;right: 0px;}
 .liked .heart-shape:before,
 .liked .heart-shape:after,
 .liked .heart-shape,
 .active.heart-shape:before,
 .active.heart-shape:after,
 .active.heart-shape {background-color: #338b53;}
+a.button,
+button {color: #fff !important;text-transform: uppercase;font-weight: bold;text-decoration: none;background: #338b53;padding: 12px 20px;border-radius: 5px;display: inline-block;border: none;
+  -webkit-transition: all 0.4s ease 0s;transition: all 0.4s ease 0s;
+}
+a.button:hover,
+button:hover {background: #434343;letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);box-shadow: 5px 40px -10px rgba(0,0,0,0.57);transition: all 0.4s ease 0s;
+}
 </style>
