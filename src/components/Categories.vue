@@ -11,11 +11,6 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'Categories',
-  data () {
-    return {
-      totallikes: {}
-    }
-  },
   methods: {
     getLikesCount (cat) {
       return this.categoryLikes[cat] || 0
