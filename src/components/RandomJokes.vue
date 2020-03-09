@@ -35,7 +35,7 @@ export default {
       for (const like in this.likes) {
         likeslist.push(this.likes[like])
       }
-      this.$store.dispatch('likes', likeslist)
+      this.$store.dispatch('updateLikes', likeslist)
     },
     reload () {
       this.ids = {}

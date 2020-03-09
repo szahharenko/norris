@@ -1,57 +1,32 @@
 <template>
   <div class="norris-categories">
     <ul class="flex">
-      <li v-for="cat in categories" :class="{active: isActive(cat)}" v-bind:key="cat" class="flex-item w25">
+      <li v-for="cat in this.allCategories" :class="{active: isActive(cat)}" v-bind:key="cat" class="flex-item w25">
           <router-link :to="`/jokes/${cat}`">{{cat}} <small v-if="getLikesCount(cat)">{{ getLikesCount(cat) }}♥</small></router-link>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Categories',
   data () {
     return {
-      totallikes: {},
-      categories: []
+      totallikes: {}
     }
   },
   methods: {
     getLikesCount (cat) {
-      const count = this.totallikes[cat]
-      return count || 0
+      return this.categoryLikes[cat] || 0
     },
     isActive (cat) {
       return this.$route.params.category === cat
     }
   },
-  computed: {
-    likescount () {
-      return this.$store.state.likes.length
-    }
-  },
-  watch: {
-    likescount () {
-      const likes = {}
-      this.$store.state.likes.forEach((like) => {
-        const cats = like.categories || []
-        cats.forEach((cat) => {
-          const count = likes[cat] || 0
-          likes[cat] = (count + 1)
-        })
-      })
-      this.totallikes = likes
-    }
-  },
+  computed: mapGetters(['allCategories', 'allLikes', 'categoryLikes']),
   mounted () {
-    axios
-      .get('https://api.chucknorris.io/jokes/categories')
-      .then(response => {
-        const data = [...response.data]
-        this.$store.dispatch('categories', data)
-        this.categories = data
-      })
+    this.$store.dispatch('fetchCategories')
   }
 }
 </script>
