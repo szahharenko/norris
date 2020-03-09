@@ -1,7 +1,7 @@
 <template>
   <div class="norris-categories">
     <ul class="flex">
-      <li v-for="cat in this.allCategories" :class="{active: isActive(cat)}" v-bind:key="cat" class="flex-item w25">
+      <li v-for="cat in this.allCategories" :class="{active: isActive(cat)}" v-bind:key="cat" class="flex-item w25 m33">
           <router-link :to="`/jokes/${cat}`">{{cat}} <small v-if="getLikesCount(cat)">{{ getLikesCount(cat) }}♥</small></router-link>
       </li>
     </ul>
